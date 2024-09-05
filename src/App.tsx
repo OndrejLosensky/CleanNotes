@@ -59,7 +59,7 @@ function App() {
     <React.Fragment>
       <section className="p-8">
         <Routes>
-            <Route path="/" element={<NotesHomepage availableTags={tags}/>}/>
+            <Route path="/" element={<NotesHomepage notes={notesWithTags} availableTags={tags}/>}/>
             <Route path="/new" element={<h1> <NewNote onSubmit={onCreateNote} onAddTag={addTag} availableTags={tags} /> </h1>}/>
             <Route path="/:id">
               <Route index element={<h1> Show </h1>} />
