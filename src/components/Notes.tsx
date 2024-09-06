@@ -112,7 +112,7 @@ function NoteCard ({ id, title, tags } : NotePreviewCard ) {
             {tags.length > 0 && (
                 <div className="space-x-2">
                     {tags.map(tag => (
-                        <span className="bg-blue-400 rounded-full py-1 px-4" key={tag.id}> {tag.label} </span>
+                        <span className="bg-violet-500 text-white rounded-full py-1 px-4" key={tag.id}> {tag.label} </span>
                     ))}
                 </div>
             )}
