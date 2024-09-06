@@ -12,11 +12,22 @@ type NotePreviewCard = {
 type NotesProps = {
     availableTags: Tag[]
     notes: NotePreviewCard[]
+    onDeleteTag: (id: string) => void
+    onUpdateTag: (id: string, label: string) => void
 }
 
-export function NotesHomepage({ availableTags, notes } : NotesProps) {
+type EditTagsModalProps = {
+  show: boolean
+  availableTags: Tag[]
+  handleClose: () => void
+  onDeleteTag: (id: string) => void
+  onUpdateTag: (id: string, label: string) => void
+}
+
+export function NotesHomepage({ availableTags, notes, onDeleteTag, onUpdateTag } : NotesProps) {
   const [selectedTags, setSelectedTags] = useState<Tag[]>([])
   const [title, setTitle] = useState("")
+  const [editTagsModalIsOpen, setEditTagsModalIsOpen] = useState(false)
 
   const filteredNotes = useMemo(() => {
     return notes.filter(note => {
@@ -41,11 +52,9 @@ export function NotesHomepage({ availableTags, notes } : NotesProps) {
               Add note
             </button>
           </Link>
-          {/*
-          <button className="py-2 px-4 rounded-md border border-gray-600 text-gray-600">
+          <button onClick={() => setEditTagsModalIsOpen(true)} className="py-2 px-4 rounded-md border border-gray-600 text-gray-600">
             Edit tags
           </button>
-           */}
         </div>
       </div>
 
@@ -84,6 +93,14 @@ export function NotesHomepage({ availableTags, notes } : NotesProps) {
             </div>
         ))}
       </div>
+
+      <EditTagsModal
+        onUpdateTag={onUpdateTag}
+        onDeleteTag={onDeleteTag}
+        show={editTagsModalIsOpen}
+        handleClose={() => setEditTagsModalIsOpen(false)}
+        availableTags={availableTags}
+      />
     </main>
   );
 }
@@ -101,4 +118,61 @@ function NoteCard ({ id, title, tags } : NotePreviewCard ) {
             )}
         </Link>
     )
+}
+
+function EditTagsModal({
+  availableTags,
+  handleClose,
+  show,
+  onDeleteTag,
+  onUpdateTag,
+}: EditTagsModalProps) {
+  if (!show) return null; 
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+      <div className="bg-white rounded-lg p-6 w-full max-w-lg">
+        {/* Modal Header */}
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-2xl font-semibold">Edit Tags</h2>
+          <button
+            className="text-gray-500 hover:text-gray-800"
+            onClick={handleClose}
+          >
+            &times;
+          </button>
+        </div>
+
+        {/* Modal Body */}
+        <div className="space-y-4">
+          {availableTags.map((tag) => (
+            <div key={tag.id} className="flex justify-between items-center">
+              <input
+                type="text"
+                value={tag.label}
+                onChange={(e) => onUpdateTag(tag.id, e.target.value)}
+                className="flex-grow py-2 px-4 border border-gray-300 rounded-md"
+              />
+              <button
+                onClick={() => onDeleteTag(tag.id)}
+                className="ml-4 py-2 px-4 bg-red-500 text-white rounded-md hover:bg-red-600"
+              >
+                &times;
+              </button>
+            </div>
+          ))}
+        </div>
+
+        {/* Modal Footer */}
+        <div className="mt-6 flex justify-end">
+          <button
+            onClick={handleClose}
+            className="py-2 px-4 bg-gray-500 text-white rounded-md hover:bg-gray-600"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  );
 }
