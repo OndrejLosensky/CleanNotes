@@ -13,11 +13,11 @@ export function Note({ onDelete }: NoteProps) {
 
   return (
     <div>
-      <div className="flex flex-row justify-between mb-6 px-4">
-        <div className="flex flex-col">
+      <div className="flex flex-col md:flex-row justify-between mb-6 px-4">
+        <div className="flex flex-row justify-between  items-center md:flex-col">
           <h2 className="text-3xl font-medium pb-2">{note.title}</h2>
           {note.tags.length > 0 && (
-            <span className="flex flex-row items-center gap-x-2">
+            <span className="flex flex-row items-center gap-x-2 mb-4 md:mb-0">
               {note.tags.map((tag) => (
                 <p key={tag.id} className="py-1 px-4 rounded-full bg-violet-400">
                   {tag.label}
@@ -26,9 +26,9 @@ export function Note({ onDelete }: NoteProps) {
             </span>
           )}
         </div>
-        <div className="flex flex-row gap-x-2 items-center">
+        <div className="flex flex-row w-full gap-x-2 items-center">
           <Link to={`/${note.id}/edit`}>
-            <button className="py-2 px-4 bg-violet-500 text-white rounded-md shadow-md">
+            <button className="bg-violet-500 flex-1 py-2 px-4  text-white rounded-md shadow-md">
               Edit
             </button>
           </Link>
