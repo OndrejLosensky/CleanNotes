@@ -45,7 +45,7 @@ export function NotesHomepage({ availableTags, notes, onDeleteTag, onUpdateTag }
   return (
     <main className="p-8">
       <div className="flex flex-row justify-between items-center mb-8">
-        <h1 className="text-4xl font-bold"> CleanNotes </h1>
+        <h1 className="text-xl md:text-4xl font-bold"> CleanNotes </h1>
         <div className="flex flex-row gap-x-2 items-center">
           <Link to="/new">
             <button className="py-2 px-4 bg-violet-500 text-white rounded-md shadow-md">
