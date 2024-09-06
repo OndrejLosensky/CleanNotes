@@ -1,7 +1,7 @@
 import React from "react";
 import { NoteForm } from "../action/NoteForm";
 import { NoteData, Tag } from "../App";
-import { useNote } from "../layout/NoteLayout";
+import { useNote } from "../hooks/useNote";
 
 type EditNoteProps = {
   onSubmit: (id: string, data: NoteData) => void;

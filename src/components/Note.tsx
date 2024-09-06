@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useNote } from "../layout/NoteLayout";
+import { useNote } from "../hooks/useNote";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm"; 
@@ -13,7 +13,7 @@ export function Note({ onDelete }: NoteProps) {
 
   return (
     <div>
-      <div className="flex flex-row justify-between mb-6">
+      <div className="flex flex-row justify-between mb-6 px-4">
         <div className="flex flex-col">
           <h2 className="text-3xl font-medium pb-2">{note.title}</h2>
           {note.tags.length > 0 && (
@@ -48,7 +48,7 @@ export function Note({ onDelete }: NoteProps) {
         </div>
       </div>
 
-      <div className="prose">
+      <div className="prose p-4">
         <ReactMarkdown
           remarkPlugins={[remarkGfm]} 
           rehypePlugins={[rehypeRaw]}
