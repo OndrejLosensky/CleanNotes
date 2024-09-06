@@ -2,21 +2,21 @@ import React, { FormEvent, useRef, useState } from "react";
 import CreateableReactSelect from "react-select/creatable";
 import { NoteData, Tag } from "../App";
 
-import { v4 as uuidV4 } from 'uuid';
+import { v4 as uuidV4 } from "uuid";
 import { useNavigate } from "react-router-dom";
 
 type NoteFormProps = {
-    onSubmit: (data: NoteData) => void;
-    onAddTag: (tag: Tag) => void
-    availableTags: Tag[]
-};
+  onSubmit: (data: NoteData) => void;
+  onAddTag: (tag: Tag) => void;
+  availableTags: Tag[];
+} & Partial<NoteData>;
 
-export function NoteForm({ onSubmit, onAddTag, availableTags }: NoteFormProps) {
+export function NoteForm({ onSubmit, onAddTag, availableTags, title = "", markdown = "", tags = [],}: NoteFormProps) {
   const titleRef = useRef<HTMLInputElement>(null);
   const bodyRef = useRef<HTMLTextAreaElement>(null);
-  const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
+  const [selectedTags, setSelectedTags] = useState<Tag[]>(tags);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
@@ -27,7 +27,7 @@ export function NoteForm({ onSubmit, onAddTag, availableTags }: NoteFormProps) {
       tags: selectedTags,
     });
 
-    navigate("..")
+    navigate("..");
   }
 
   return (
@@ -39,6 +39,7 @@ export function NoteForm({ onSubmit, onAddTag, availableTags }: NoteFormProps) {
               Title
             </label>
             <input
+              defaultValue={title}
               ref={titleRef}
               type="text"
               placeholder="Think of an title..."
@@ -50,26 +51,26 @@ export function NoteForm({ onSubmit, onAddTag, availableTags }: NoteFormProps) {
               Tags
             </label>
             <CreateableReactSelect
-              value={selectedTags.map((tag) => {
-                return { label: tag.label, value: tag.id };
-              })}
-              options={availableTags.map(tag => {
-                return { label: tag.label, value: tag.id}
-              })}
-              onChange={(tags) => {
-                setSelectedTags(
-                  tags.map((tag) => {
-                    return { label: tag.label, id: tag.value };
-                  })
-                );
-              }}
-              onCreateOption={label => {
-                const newTag = { id: uuidV4(), label}
-                onAddTag(newTag)
-                setSelectedTags(prev => [...prev, newTag])
-              }}
-              isMulti
-            />
+                onCreateOption={label => {
+                  const newTag = { id: uuidV4(), label }
+                  onAddTag(newTag)
+                  setSelectedTags(prev => [...prev, newTag])
+                }}
+                value={selectedTags.map(tag => {
+                  return { label: tag.label, value: tag.id }
+                })}
+                options={availableTags.map(tag => {
+                  return { label: tag.label, value: tag.id }
+                })}
+                onChange={tags => {
+                  setSelectedTags(
+                    tags.map(tag => {
+                      return { label: tag.label, id: tag.value }
+                    })
+                  )
+                }}
+                isMulti
+              />
           </div>
         </div>
         <div className="flex flex-col flex-1">
@@ -77,6 +78,7 @@ export function NoteForm({ onSubmit, onAddTag, availableTags }: NoteFormProps) {
             Body
           </label>
           <textarea
+            defaultValue={markdown}
             ref={bodyRef}
             rows={15}
             placeholder="Start typing..."

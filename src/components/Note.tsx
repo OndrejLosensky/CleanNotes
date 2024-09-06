@@ -12,7 +12,7 @@ export function Note ({ onDelete } : NoteProps) {
   
   return (
     <div>
-        <div className="flex flex-row justify-between">
+        <div className="flex flex-row justify-between mb-6">
             <div className="flex flex-col">
                 <h2 className="text-3xl font-medium pb-2">{note.title}</h2>
                 {note.tags.length > 0 && (
