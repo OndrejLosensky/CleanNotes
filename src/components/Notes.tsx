@@ -41,9 +41,11 @@ export function NotesHomepage({ availableTags, notes } : NotesProps) {
               Add note
             </button>
           </Link>
+          {/*
           <button className="py-2 px-4 rounded-md border border-gray-600 text-gray-600">
             Edit tags
           </button>
+           */}
         </div>
       </div>
 
