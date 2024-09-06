@@ -5,6 +5,8 @@ import { useLocalStorage } from "./hooks/useLocalStorage"
 
 import { v4 as uuidV4 } from 'uuid';
 import { NotesHomepage } from "./components/Notes";
+import { NoteLayout } from "./layout/NoteLayout";
+import { Note } from "./components/Note";
 
 export type Note = {
   id: string
@@ -55,14 +57,20 @@ function App() {
     setTags(prev => [...prev, tag])
   }
 
+  function onDeleteNote(id: string) {
+    setNotes(prevNotes => {
+      return prevNotes.filter(note => note.id !== id)
+    })
+  }
+
   return (
     <React.Fragment>
       <section className="p-8">
         <Routes>
             <Route path="/" element={<NotesHomepage notes={notesWithTags} availableTags={tags}/>}/>
             <Route path="/new" element={<h1> <NewNote onSubmit={onCreateNote} onAddTag={addTag} availableTags={tags} /> </h1>}/>
-            <Route path="/:id">
-              <Route index element={<h1> Show </h1>} />
+            <Route path="/:id" element={<NoteLayout notes={notesWithTags} />}>
+              <Route index element={<Note onDelete={onDeleteNote} />} />
               <Route path="edit" element={<h1> Edit </h1>} />
             </Route>
             <Route path="*" element={<Navigate to="/" />}/>

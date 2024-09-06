@@ -88,7 +88,7 @@ export function NotesHomepage({ availableTags, notes } : NotesProps) {
 
 function NoteCard ({ id, title, tags } : NotePreviewCard ) {
     return (
-        <Link to={`/${id}`} className="w-full flex flex-col items-center justify-center bg-neutral-100 border border-black/15 shadow-sm rounded-lg py-4 duration-200 hover:border-black/30 hover:scale-[1.03] hover:shadow-lg ">
+        <Link to={`/${id}`} className="w-full flex flex-col items-center justify-center bg-neutral-100 border border-black/15 shadow-sm rounded-lg py-8 duration-200 hover:border-black/30 hover:scale-[1.03] hover:shadow-lg ">
             <h1 className="text-2xl font-semibold pb-3" key={id}>{title}</h1>
             {tags.length > 0 && (
                 <div className="space-x-2">
