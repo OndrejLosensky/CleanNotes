@@ -3,7 +3,7 @@ import CreateableReactSelect from "react-select/creatable";
 import { NoteData, Tag } from "../App";
 import { v4 as uuidV4 } from "uuid";
 import { useNavigate } from "react-router-dom";
-import ReactMarkdown from "react-markdown"; // Import the markdown library
+import ReactMarkdown from "react-markdown"; 
 
 type NoteFormProps = {
   onSubmit: (data: NoteData) => void;
@@ -22,7 +22,7 @@ export function NoteForm({
   const titleRef = useRef<HTMLInputElement>(null);
   const bodyRef = useRef<HTMLTextAreaElement>(null);
   const [selectedTags, setSelectedTags] = useState<Tag[]>(tags);
-  const [markdownContent, setMarkdownContent] = useState(markdown); // State for live markdown content
+  const [markdownContent, setMarkdownContent] = useState(markdown); 
 
   const navigate = useNavigate();
 
