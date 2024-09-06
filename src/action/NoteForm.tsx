@@ -3,7 +3,6 @@ import CreateableReactSelect from "react-select/creatable";
 import { NoteData, Tag } from "../App";
 import { v4 as uuidV4 } from "uuid";
 import { useNavigate } from "react-router-dom";
-import ReactMarkdown from "react-markdown"; 
 
 type NoteFormProps = {
   onSubmit: (data: NoteData) => void;
@@ -86,23 +85,15 @@ export function NoteForm({
             Body
           </label>
           <textarea
-            value={markdownContent} // Bind to the markdownContent state
-            onChange={(e) => setMarkdownContent(e.target.value)} // Update markdownContent as user types
+            value={markdownContent}
+            onChange={(e) => setMarkdownContent(e.target.value)}
             ref={bodyRef}
             rows={15}
             placeholder="Start typing..."
             className="py-2 px-4 rounded-md border border-black/20"
           />
         </div>
-        <div className="flex flex-col flex-1">
-          <label htmlFor="" className="text-xl font-medium pb-1">
-            Markdown Preview
-          </label>
-          <div className="p-4 border border-black/20 rounded-md bg-gray-50 min-h-[150px]">
-            {/* Render markdown preview */}
-            <ReactMarkdown>{markdownContent}</ReactMarkdown>
-          </div>
-        </div>
+      
         <div className="flex flex-row justify-end gap-x-4 mt-4">
           <button className="flex flex-row items-center gap-x-2 py-2 px-4 bg-violet-500 text-gray-100 rounded-md">
             <span> Save </span>
